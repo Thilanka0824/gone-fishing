@@ -37,6 +37,7 @@ let hourCtr = 0
 let weightCtr = 0
 let valueCtr = 0
 let time = hourCtr + 5
+let finalFishName = ''
 
 //decriptor arrays
 let fishType = ["", "Salmon", "Talapia", "Tuna", "Trout", "Cod", "Goldfish", "Sunfish", "Bass", "Beluga", "Barramundi"]
@@ -81,7 +82,10 @@ console.log(`You've caught a ${}`)
 
 function randomFish(){
     let fishResult = Math.ceil(Math.random() * 10)
-    return `${descrip1[fishResult]} ${descrip2[fishResult]} ${fishType[fishResult]}`
+    
+    finalFishName = `${descrip1[fishResult]} ${descrip2[fishResult]} ${fishType[fishResult]}`
+    return finalFishName
+
 }
 
 //console.log(randomFish())
@@ -108,10 +112,11 @@ console.log(`You caught a '${randomFish()}' weighing ${randomWeight()} lbs and v
 let createFish = (name, weight, value) => {
     let newFish = {
         name: name,
-        weight: weight,
-        value: value
+        weight: `${weight} lbs`,
+        value: `$${value}`
     }
     
+    return newFish
     // let  newFish = {};
     // newFish.name = name
     // newFish.weight = weight
@@ -119,4 +124,4 @@ let createFish = (name, weight, value) => {
 
 }
 
-console.log(createFish(randomFish, randomWeight, randomValue))
+console.log(createFish(randomFish(), randomWeight(), randomValue()))
