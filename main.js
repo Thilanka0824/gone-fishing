@@ -37,10 +37,12 @@ const prompt = require("prompt-sync")({ sigint: true });
 let hourCtr = 0;
 let weightCtr = 0;
 let valueCtr = 0;
+let fishCtr = 0
 
-let bossCtr = 0
-//let time = hourCtr + 5
+let time = 5
 let fishName = "";
+let fishKeep = []
+let newFish = {}
 
 //decriptor arrays
 let fishType = ["","Salmon","Talapia","Tuna","Trout","Cod","Goldfish","Sunfish","Bass","Beluga","Barramundi",
@@ -62,118 +64,94 @@ console.log(
   "\n==========================================================================\n"
 );
 
-/*
-console.log(`The time is ${time}:00am. So far you've caught: ${fishKeep.length} fish, ${weightCtr} lbs, $${valueCtr} \n`)
-
-console.log(`You've caught a ${}`)
-
-// while (hourCtr < 7 || weightCtr < 12){
-
-    
-
-// }
-*/
-
-// let createFish = (name, weight, value) => {
-//     // let newFish = {
-//     //     name: name,
-//     //     weight: weight,
-//     //     value: value
-//     // }
-
-//     let  newFish = {};
-//     newFish.name = name
-//     newFish.weight = weight
-//     newFish.value = value
-
-// }
-
-function randomFish() {
+//Functions
+let randomFish = () => {
   let fishResult = Math.ceil(Math.random() * 10);
 
   fishName = `${descrip1[fishResult]} ${descrip2[fishResult]} ${fishType[fishResult]}`;
   return fishName;
 }
 
-//console.log(randomFish())
 
-function randomWeight() {
+let randomWeight = () => {
   let weightResult = Math.ceil(Math.random() * 1000) / 200;
   return `${Number(weightResult)}`;
 }
 
-//console.log(randomWeight())
 
-function randomValue() {
+let randomValue = () => {
   let valueResult = Math.ceil(Math.random() * 1000) / 50;
   return `${valueResult}`;
 }
 
-//console.log(randomValue())
-console.log(
-  `The time is ${0}:00am. So far you've caught: ${
-    fishKeep.length
-  } fish, ${weightCtr} lbs, $${valueCtr} \n`
-);
+let createFish = (na, we, va) => {
+    newFish = {
+     
+     name: na,
+     weight: `${we} lbs`,
+     value: `$${va}`,
+   };
 
-console.log(
-  `You caught a '${randomFish()}' weighing ${randomWeight()}lbs and valued at $${randomValue()} `
-);
+   return newFish;
+};
 
-// if (weightCtr > 10) {
-//   bossCtr = false;
-// } else {
-//   bossCtr = true;
-// }
-while (hourCtr < 6) {
+
+//Loop
+while (hourCtr < 6 && weightCtr < 10) {
   //Fish Object
+  console.log(
+    `\n\nThe time is ${time}:00am. So far you've caught: ${fishCtr} fish, ${weightCtr} lbs, $${valueCtr} \n`);
+  
+    newFish = createFish(randomFish(), randomWeight(), randomValue()); //
+  
+    console.log(
+    `You caught a '${newFish.name}' weighing ${newFish.weight}lbs and valued at $${newFish.value} \n`);
 
-  let createFish = (n, w, v) => {
-    let newFish = {
-      name: n,
-      weight: `${w} lbs`,
-      value: `$${v}`,
-    };
 
-    return newFish;
-  };
 
-  console.log(createFish(randomFish(), randomWeight(), randomValue()));
-  hourCtr++;
-  console.log(`hourCtr: ${hourCtr}`);
-  weightCtr = weightCtr + Number(randomWeight());
+
+let userInput = prompt("\nWould you like to [c]atch or [r]elease? >")
+    
+    
+    if(userInput === 'c') {
+        console.log("\nYou chose to keep the fish")
+        console.log("==========================================================")
+        
+        
+        fishKeep.push(newFish); //adds created object to fishKeep array
+        weightCtr = weightCtr + Number(randomWeight()); //adds weight to weightCtr
+        valueCtr = valueCtr + Number(randomValue()); //adds value to valueCtr
+
+        hourCtr++;
+        time++
+        fishCtr++
+
+    } else {
+        console.log("\nFishy go free")
+        console.log("==========================================================")
+        hourCtr++;
+        time++
+    }
+
+  //console.log(createFish(randomFish(), randomWeight(), randomValue()));
+  
+  
+  //console.log(`\nfishKeep: ${newFish}`);
+  //console.log(`hourCtr: ${hourCtr}`);
+  
+  //console.log(`hourCtr2: ${hourCtr}`);
   console.log(`weightCtr: ${weightCtr}`);
+  console.log(`valueCtr: ${valueCtr}`);
 
-  //   console.log(createFish(randomFish(), randomWeight(), randomValue()));
-  //   hourCtr++;
-  //   console.log(`hourCtr: ${hourCtr}`);
-  //   weightCtr = weightCtr + Number(randomWeight());
-  //   console.log(`weightCtr: ${weightCtr}`);
-
-  //   console.log(createFish(randomFish(), randomWeight(), randomValue()));
-  //   hourCtr++;
-  //   console.log(`hourCtr: ${hourCtr}`);
-  //   weightCtr = weightCtr + Number(randomWeight());
-  //   console.log(`weightCtr: ${weightCtr}`);
-
-  //   console.log(createFish(randomFish(), randomWeight(), randomValue()));
-  //   hourCtr++;
-  //   console.log(`hourCtr: ${hourCtr}`);
-  //   weightCtr = weightCtr + Number(randomWeight());
-  //   console.log(`weightCtr: ${weightCtr}`);
-
-  //   console.log(createFish(randomFish(), randomWeight(), randomValue()));
-  //   hourCtr++;
-  //   console.log(`hourCtr: ${hourCtr}`);
-  //   weightCtr = weightCtr + Number(randomWeight());
-  //   console.log(`weightCtr: ${weightCtr}`);
-
-  //   console.log(createFish(randomFish(), randomWeight(), randomValue()));
-  //   hourCtr++;
-  //   console.log(`hourCtr: ${hourCtr}`);
-  //   weightCtr = weightCtr + Number(randomWeight());
-  //   console.log(`weightCtr: ${weightCtr}`);
+  //weightCtr = weightCtr + Number(randomWeight());
+  //console.log(`weightCtr2: ${weightCtr}`);
 }
+
+for(let i = 0; i < fishKeep.length; i++){
+    console.log(`fishKeep[i]${[i]} ${fishKeep[i]}`)
+}
+
+console.log(`you've caught ${fishKeep.length} fish!`)
 
 console.log(`loops's over`);
 //console.log(`newFish: ${newFish}`)

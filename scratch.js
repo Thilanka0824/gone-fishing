@@ -7,7 +7,7 @@ let weightCtr = 0;
 let valueCtr = 0;
 
 let bossCtr = 0
-//let time = hourCtr + 5
+let time = hourCtr + 5
 let fishName = "";
 
 let fishKeep = [];
@@ -64,7 +64,7 @@ console.log(
 );
 
 
-while (hourCtr < 6 || weightCtr < 10) {
+while (hourCtr < 7 && weightCtr < 10) {
   //Fish Object
 
   let createFish = (n, w, v) => {
@@ -78,8 +78,9 @@ while (hourCtr < 6 || weightCtr < 10) {
   };
 
   console.log(createFish(randomFish(), randomWeight(), randomValue()));
-  hourCtr++;
   console.log(`hourCtr: ${hourCtr}`);
+  hourCtr++;
+  console.log(`hourCtr2: ${hourCtr}`);
   weightCtr = weightCtr + Number(randomWeight());
   console.log(`weightCtr: ${weightCtr}`);
 
