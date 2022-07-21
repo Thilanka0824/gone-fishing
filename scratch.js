@@ -10,6 +10,8 @@ let bossCtr = 0
 //let time = hourCtr + 5
 let fishName = "";
 
+let fishKeep = [];
+
 //decriptor arrays
 let fishType = ["","Salmon","Talapia","Tuna","Trout","Cod","Goldfish","Sunfish","Bass","Beluga","Barramundi",
 ];

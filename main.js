@@ -52,7 +52,7 @@ let descrip2 = [ "", "Black", "Maroon","Green", "Blueish", "Purple","Yellow", "V
 ];
 
 //final array of fish
-let fishKeep = [];
+
 
 console.log(
   "\nYou've gone fishing! Try to maximize the value of your caught fish. You can fish for six hours (till 11:00am) and can catch at most 10 lbs of fish."
