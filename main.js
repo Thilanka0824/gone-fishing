@@ -1,4 +1,3 @@
-
 const prompt = require("prompt-sync")({ sigint: true });
 
 
@@ -29,71 +28,74 @@ console.log(
   "\nYou've gone fishing! Try to maximize the value of your caught fish. You can fish for six hours (till 11:00am) and can catch at most 10 lbs of fish."
 );
 
-console.log("\n==========================================================================\n");
+console.log("\n\n");
 
 //Functions
 let randomFish = () => {
-  let fishResult = Math.ceil(Math.random() * 10);
+  let fishResult = Math.ceil(Math.random() * 10); //generates a random number into fishResult
 
-  fishName = `${descrip1[fishResult]} ${descrip2[fishResult]} ${fishType[fishResult]}`;
+  fishName = `${descrip1[fishResult]} ${descrip2[fishResult]} ${fishType[fishResult]}`; //generates a random fishName
   return fishName;
-}
+} // this function returns a randomly generated fishName
 
 
 let randomWeight = () => {
   let weightResult = Math.ceil(Math.random() * 1000) / 200;
   return `${Number(weightResult)}`;
-}
+} // this function returns a randomly generated weight result between (1 - 1000) / 200 
 
 
 let randomValue = () => {
   let valueResult = Math.ceil(Math.random() * 1000) / 50;
   return `${valueResult}`;
-}
+} // this function returns a randomly generated value (1 - 1000) / 50
+
 //Fish Object
 let createFish = (na, we, va) => {
-    newFish = {
+    madeFish = {
      
      name: na,
      weight: `${we} lbs`,
      value: `$${va}`,
    };
 
-   return newFish;
-};
+   return madeFish;
+}; // this function creates an new object called madeFish 
 
 
 //Loop
-while (hourCtr < 7 && weightCtr < 10) {
+while (hourCtr < 7 && weightCtr < 10) { //while hourCtr is less than 7 AND weightCtr is less than 10
   
-    console.log(`\nThe time is ${time}:00am. So far you've caught: ${fishCtr} fish, ${weightCtr} lbs, $${valueCtr} \n`);
+    
 
-    console.log(`************************************ turn ${hourCtr} ************************************`)
+    console.log(`************************************ turn ${hourCtr} ************************************`) //logs the turn number //same as hourCtr
     console.log(`********************************************************************************`)
+    console.log(`\nThe time is ${time}:00am. So far you've caught: ${fishCtr} fish, ${weightCtr} lbs, $${valueCtr} \n`); //logs the time, how many fish caught, weight, value. 
     console.log(`\nGO FISHIN'\n`)
+
   
-    newFish = createFish(randomFish(), randomWeight(), randomValue()); 
+    newFish = createFish(randomFish(), randomWeight(), randomValue()); //creates a new fish in createFish and puts it into newFish 
   
-    console.log(`You caught a '${newFish.name}' weighing ${newFish.weight}lbs and valued at $${newFish.value} \n`);
-  
-let userInput = prompt("Would you like to [c]atch or [r]elease? >")
+    console.log(`You caught a '${newFish.name}' weighing ${newFish.weight}lbs and valued at $${newFish.value} \n`); //logs the fish, its weight, and value
+    console.log(`fishKeep a. : ${fishKeep}`) 
+
+    let userInput = prompt("Would you like to [c]atch or [r]elease? >")
     
     if(userInput === 'c' && weightCtr + Number(randomWeight()) > 10) {
         console.log('\n===You cannot catch this fish it will put you over your limit!===\n')
-        
+        console.log('#################################################################\n')
         
         hourCtr++
         time++
     
     } else if (userInput === 'c') {
-        console.log("\nYou chose to KEEP THE FISH!")
-        // console.log("==========================================================")
-        // console.log("==========================================================\n")
-        
+        console.log("\nYou chose to KEEP THE FISH!\n")
         fishKeep.push(newFish); 
-        
-        weightCtr = weightCtr + Number(randomWeight()); 
-        valueCtr = valueCtr + Number(randomValue()); 
+        console.log(`fishKeep a. : ${fishKeep}`)
+        console.log(`weigthCtr a. : ${weightCtr}`)
+        weightCtr += Number(randomWeight()); 
+        console.log(`weigthCtr b. : ${weightCtr}`)
+        valueCtr += Number(randomValue()); 
 
         hourCtr++;
         time++
@@ -102,8 +104,6 @@ let userInput = prompt("Would you like to [c]atch or [r]elease? >")
         
     } else {
         console.log("\nFishy go free!!!\n")
-        // console.log("\n==========================================================")
-        // console.log("==========================================================\n")
         hourCtr++;
         time++
     }
@@ -113,11 +113,15 @@ let userInput = prompt("Would you like to [c]atch or [r]elease? >")
 
 console.log(`\nGAME OVER!`)
 console.log(`\nyou've caught ${fishKeep.length} fish!\n`)
+console.log()
 
 for(let i = 0; i < fishKeep.length; i++){
-    console.log(fishKeep[i])
+    console.log(`* ${fishKeep[i].name}, ${fishKeep[i].weight} lbs, $${fishKeep[i].value}` )
 
 }
+
+console.log(`\nTotal weight: ${weightCtr} lbs`)
+console.log(`Total value: $${valueCtr}`)
 console.log(`\n`)
 
 
