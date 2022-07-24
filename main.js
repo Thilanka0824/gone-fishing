@@ -26,7 +26,7 @@ let descrip2 = [ "", "Black", "Maroon","Green", "Blueish", "Purple","Yellow", "V
 
 
 console.log(
-  "\nYou've gone fishing! Try to maximize the value of your caught fish. You can fish for six hours (till 11:00am) and can catch at most 10 lbs of fish."
+  "\nYou've gone fishing! Try to maximize the value of your caught fish. You can fish for six hours (till 12:00pm) and can catch at most 10 lbs of fish."
 );
 
 console.log("\n\n");
@@ -65,73 +65,81 @@ let createFish = (na, we, va) => {
 
 
 //Loop
-while (hourCtr < 7 && weightCtr < 10) { //while hourCtr is less than 7 AND weightCtr is less than 10
+while (hourCtr < 7 && weightCtr < 10) {
+  //while hourCtr is less than 7 AND weightCtr is less than 10
+
+  console.log(
+    `************************************ turn ${hourCtr} ************************************`
+  ); //logs the turn number //same as hourCtr
+  console.log(
+    `********************************************************************************`
+  );
+  console.log(
+    `\nThe time is ${hourCtr + 5}:00am. So far you've caught: ${fishKeep.length
+    } fish, ${weightCtr} lbs, $${valueCtr} \n`
+  ); //logs the time, how many fish caught, weight, value.
+  console.log(`\nGO FISHIN'\n`);
+
+  newFish = createFish(randomFish(), randomWeight(), randomValue()); //creates a new fish in createFish and puts it into newFish
+  console.log(newFish);
+  fishKeep.push(newFish); //pushes newFish to the fishKeep array
   
+  console.log(`You caught a '${newFish.name}' weighing ${newFish.weight} and valued at $${newFish.value} \n`); //logs the fish, its weight, and value
+  weightCtr += newFish.weight; //adds the weight of newfish to weightCtr
+  valueCtr += newFish.value; //adds the value of newfish to valueCtr
+
+  userInput = prompt("Would you like to [c]atch or [r]elease? >");
+
+  if (userInput === "c" && weightCtr > 10) {
+    console.log("\n===You cannot catch this fish it will put you over your limit!===\n");
+    console.log("#################################################################\n");
     
-
-    console.log(`************************************ turn ${hourCtr} ************************************`) //logs the turn number //same as hourCtr
-    console.log(`********************************************************************************`)
-    console.log(`\nThe time is ${hourCtr + 5}:00am. So far you've caught: ${fishKeep.length} fish, ${weightCtr} lbs, $${valueCtr} \n`); //logs the time, how many fish caught, weight, value. 
-    console.log(`\nGO FISHIN'\n`)
-
+    weightCtr -= newFish.weight;
+    valueCtr -= newFish.value;
+    fishKeep.pop(newFish);
+    hourCtr++;
+    console.log(`weightCtr overlimit: ${weightCtr}`);
   
-    newFish = createFish(randomFish(), randomWeight(), randomValue()); //creates a new fish in createFish and puts it into newFish 
-    console.log(newFish)
-    fishKeep.push(newFish) //pushes newFish to the fishKeep array
-    console.log(`You caught a '${newFish.name}' weighing ${newFish.weight} and valued at $${newFish.value} \n`); //logs the fish, its weight, and value
-    weightCtr += newFish.weight //adds the weight of newfish to weightCtr
+  } else if (userInput === "c" && weightCtr < 10) {
+    console.log("\nYou chose to KEEP THE FISH!\n");
+    console.log(`fishKeep a. : ${fishKeep.length}`);
 
-    
-    userInput = prompt("Would you like to [c]atch or [r]elease? >")
-    
-    if (weightCtr + newFish.weight > 10) {
-           console.log('\n===You cannot catch this fish it will put you over your limit!===\n')
-          console.log('#################################################################\n')
-        
-        hourCtr++
-        time++
-    } 
-    
+    hourCtr++;
+    console.log(`weightCtr keep the fish: ${weightCtr}`);
+  
+  } else if(userInput === 'r' ){
+    console.log("\nFishy go free!!!\n");
 
-   
-    console.log(`weightCtr: ${weightCtr}`)
-    
-    
-    } 
-    
+    weightCtr -= newFish.weight;
+    valueCtr -= newFish.value;
+    fishKeep.pop(newFish);
+    hourCtr++;
+    console.log(`weightCtr release: ${weightCtr}`);
 
-    if (userInput === 'c' && weightCtr < 10) {
-        console.log("\nYou chose to KEEP THE FISH!\n")
-        console.log(`fishKeep a. : ${fishKeep.length}`)
-    
-        hourCtr++;
-        time++
-    
-
-        
-    } else {
-        console.log("\nFishy go free!!!\n")
-        
-        fishKeep.pop()
-        hourCtr++;
-        time++
-    }
+  }
 
 
 
-
-console.log(`\nGAME OVER!`)
-console.log(`\nyou've caught ${fishKeep.length} fish!\n`)
-console.log()
-
-for(let i = 0; i < fishKeep.length; i++){
-    console.log(`* ${fishKeep[i].name}, ${fishKeep[i].weight}lbs, $${fishKeep[i].value}` )
-
+  for (let i = 0; i < fishKeep.length; i++) {
+    console.log(
+      `* ${fishKeep[i].name}, ${fishKeep[i].weight}lbs, $${fishKeep[i].value}`
+    );
+  }
 }
 
-console.log(`\nTotal weight: ${weightCtr}`)
-console.log(`Total value: $${valueCtr}`)
-console.log(`\n`)
+console.log(`\nGAME OVER!`);
+console.log(`\nyou've caught ${fishKeep.length} fish!\n`);
+console.log();
+
+for (let i = 0; i < fishKeep.length; i++) {
+  console.log(
+    `*** ${fishKeep[i].name}, ${fishKeep[i].weight}lbs, $${fishKeep[i].value}`
+  );
+}
+
+console.log(`\nTotal weight: ${weightCtr}`);
+console.log(`Total value: $${valueCtr}`);
+console.log(`\n`);
 
 
 
