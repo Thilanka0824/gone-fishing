@@ -5,7 +5,7 @@ const prompt = require("prompt-sync")({ sigint: true });
 let hourCtr = 1;
 let weightCtr = 0;
 let valueCtr = 0;
-let fishCtr = 0
+//let fishCtr = 0
 
 let time = 6
 let fishName = "";
@@ -40,27 +40,27 @@ let randomFish = () => {
 
 
 let randomWeight = () => {
-  let weightResult = Math.ceil(Math.random() * 1000) / 200;
+  let weightResult = Math.ceil(Math.random() * 1000) / 100;
   return `${Number(weightResult)}`;
-} // this function returns a randomly generated weight result between (1 - 1000) / 200 
+} // this function returns a randomly generated weight result between (1 - 1000) / 100
 
 
 let randomValue = () => {
-  let valueResult = Math.ceil(Math.random() * 1000) / 50;
+  let valueResult = Math.ceil(Math.random() * 1000) / 100;
   return `${valueResult}`;
-} // this function returns a randomly generated value (1 - 1000) / 50
+} // this function returns a randomly generated value (1 - 1000) / 100
 
 //Fish Object
 let createFish = (na, we, va) => {
     madeFish = {
      
      name: na,
-     weight: `${we} lbs`,
-     value: `$${va}`,
+     weight: we,
+     value: va
    };
 
    return madeFish;
-}; // this function creates an new object called madeFish 
+}; // this function creates and returns an new object called madeFish 
 
 
 //Loop
@@ -70,14 +70,19 @@ while (hourCtr < 7 && weightCtr < 10) { //while hourCtr is less than 7 AND weigh
 
     console.log(`************************************ turn ${hourCtr} ************************************`) //logs the turn number //same as hourCtr
     console.log(`********************************************************************************`)
-    console.log(`\nThe time is ${time}:00am. So far you've caught: ${fishCtr} fish, ${weightCtr} lbs, $${valueCtr} \n`); //logs the time, how many fish caught, weight, value. 
+    console.log(`\nThe time is ${time}:00am. So far you've caught: ${fishKeep.length} fish, ${weightCtr} lbs, $${valueCtr} \n`); //logs the time, how many fish caught, weight, value. 
     console.log(`\nGO FISHIN'\n`)
 
   
     newFish = createFish(randomFish(), randomWeight(), randomValue()); //creates a new fish in createFish and puts it into newFish 
   
-    console.log(`You caught a '${newFish.name}' weighing ${newFish.weight}lbs and valued at $${newFish.value} \n`); //logs the fish, its weight, and value
-    console.log(`fishKeep a. : ${fishKeep}`) 
+    console.log(`You caught a '${newFish.name}' weighing ${newFish.weight} and valued at $${newFish.value} \n`); //logs the fish, its weight, and value
+    
+    //console.log(`fishKeep a. : ${fishKeep}`) 
+    for(let i = 0; i < fishKeep.length; i++){
+      console.log(`* ${fishKeep[i].name}, ${fishKeep[i].weight} lbs, $${fishKeep[i].value}` )
+  
+    }
 
     let userInput = prompt("Would you like to [c]atch or [r]elease? >")
     
@@ -90,16 +95,16 @@ while (hourCtr < 7 && weightCtr < 10) { //while hourCtr is less than 7 AND weigh
     
     } else if (userInput === 'c') {
         console.log("\nYou chose to KEEP THE FISH!\n")
-        fishKeep.push(newFish); 
-        console.log(`fishKeep a. : ${fishKeep}`)
+        fishKeep.push(newFish); //adds newFish(which is equal to the output of the createFish function) into the fishKeep array
+        console.log(`fishKeep a. : ${fishKeep.length}`)
         console.log(`weigthCtr a. : ${weightCtr}`)
-        weightCtr += Number(randomWeight()); 
+        weightCtr += Number(randomWeight()); //here weight counter is pulling in a random weight instead of using the initial weight of the fish i caught ////i think this is the bug
         console.log(`weigthCtr b. : ${weightCtr}`)
         valueCtr += Number(randomValue()); 
 
         hourCtr++;
         time++
-        fishCtr++
+        //fishCtr++
            
         
     } else {
@@ -116,11 +121,11 @@ console.log(`\nyou've caught ${fishKeep.length} fish!\n`)
 console.log()
 
 for(let i = 0; i < fishKeep.length; i++){
-    console.log(`* ${fishKeep[i].name}, ${fishKeep[i].weight} lbs, $${fishKeep[i].value}` )
+    console.log(`* ${fishKeep[i].name}, ${fishKeep[i].weight}lbs, $${fishKeep[i].value}` )
 
 }
 
-console.log(`\nTotal weight: ${weightCtr} lbs`)
+console.log(`\nTotal weight: ${weightCtr}`)
 console.log(`Total value: $${valueCtr}`)
 console.log(`\n`)
 
