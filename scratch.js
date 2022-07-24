@@ -1,113 +1,151 @@
-const prompt = require("prompt-sync")({ sigint: true });
-
-
-//counters
-let hourCtr = 1;
-let weightCtr = 0;
-let valueCtr = 0;
-let fishCtr = 0
-
-let time = 6
-let fishName = "";
-let fishKeep = []
-let newFish = {}
-
-//decriptor arrays
-let fishType = ["","Salmon","Talapia","Tuna","Trout","Cod","Goldfish","Sunfish","Bass","Beluga","Barramundi",
-];
-
-let descrip1 = ["","Deepsea","Marine","Freshwater","Slimy","Ugly","Stupid","Hateful","OverWorked","Shiny","Bright",
-];
-let descrip2 = [ "", "Black", "Maroon","Green", "Blueish", "Purple","Yellow", "Violet","Red", "Gray", "Camo",
-];
+const prompt = require('prompt-sync')({
+  sigint: true
+});
 
 
 
+let fishKept = [];
+let descriptor1 = [" ", "Huge", "Miniature", "Big", "Small", "Fat", "Thicc", "Thiccalicious", "Skinny", "Scronny", "Smeagol looking mf"];
+let descriptor2 = [" ", "Yellow", "Red", "Purple", "Green", "Blue", "Pink", "Orange", "Aqua", "Gray", "Black"];
+let descriptor3 = [" ", "Pikachu", "Lugia", "Raikou", "Snorlax", "Entei", "Suicune", "Ho-oh", "Rayquaza", "Mewtwo", "Zapdos"];
+let totalWeight = 0;
+let totalValue = 0;
+let indivWeight = 0;
+let indivValue = 0;
+let timeCtr = 0; // 5 to 11
+let finishedFishName = '';
+let newFish = {};
 
-console.log(
-  "\nYou've gone fishing! Try to maximize the value of your caught fish. You can fish for six hours (till 11:00am) and can catch at most 10 lbs of fish."
-);
+console.log("\n==========================================\n");
 
-console.log("\n==========================================================================\n");
+console.log("You are a Pokemon trainer! You have only 6 hours to catch as many Pokemon as you can with the total weight under 10 lbs. It takes roughly 1 hour to catch each Pokemon (they are slippery little turds). The goal is to keep it under 10 lbs and maximize your value over the 6 given hours.");
+console.log('\n');
 
-//Functions
-let randomFish = () => {
-  let fishResult = Math.ceil(Math.random() * 10);
+console.log("The time is 0:00 am. So far you've caught: 0 fish, 0 lbs, $0.00.");
 
-  fishName = `${descrip1[fishResult]} ${descrip2[fishResult]} ${fishType[fishResult]}`;
-  return fishName;
+console.log("\n==========================================\n");
+
+console.log("You just ran into your first Pokemon !! What are you going to do!?!?");
+console.log('\n');
+/* 
+******************************
+****** SECTION TAKING CARE OF CREATING FISH ******
+******************************
+*/
+
+// Description 1 
+let d1 = (arr) => {
+  let randomItem = Math.ceil(Math.random() * 10) // randomItem is the index number that comes out of this 
+  finishedFishName += " " + (arr[randomItem]);
+}
+
+// Description 2
+let d2 = (arr) => {
+  let randomItem = Math.ceil(Math.random() * 10) // randomItem is the index number that comes out of this 
+  finishedFishName += " " + (arr[randomItem]);
+}
+
+// Description 3
+let d3 = (arr) => {
+  let randomItem = Math.ceil(Math.random() * 10) // randomItem is the index number that comes out of this 
+  finishedFishName += " " + (arr[randomItem])
+}
+
+/* 
+******************************
+****** SECTION TAKING CARE OF CREATING FISH ******
+******************************
+*/
+
+
+//  GENERATING THE WEIGHT
+let fishWeight = () => {
+  let weight = (Math.ceil(Math.random() * 1000) / 200)
+  return weight
+}
+indivWeight = fishWeight();
+
+//  GENERATING THE VALUE
+let fishValue = () => {
+  let value = (Math.ceil(Math.random() * 1000) / 50)
+  return value
+}
+indivValue = fishValue();
+
+//  FULL FISH OBJECT
+let createdFish = (name, weight, value) => {
+  newFish = {
+      name: name,
+      weight: weight,
+      value: value
+  }
+  return newFish;
 }
 
 
-let randomWeight = () => {
-  let weightResult = Math.ceil(Math.random() * 1000) / 200;
-  return `${Number(weightResult)}`;
+while (timeCtr <= 5 && totalWeight < 10) {
+  // Functions running through the arrays of predetermined information
+  d1(descriptor1);
+  d2(descriptor2);
+  d3(descriptor3);
+  // Functions running through the arrays of predetermined information
+  fishWeight();
+  fishValue();
+  indivWeight = fishWeight();
+  indivValue = fishValue();
+  newFish = createdFish(finishedFishName, indivWeight, indivValue);
+  // First fish of the game
+  console.log(newFish)
+  console.log("\n");
+  let userInput = prompt("Would you like to (c)atch this Pokemon? OR Would you like to (r)elease this Pokemon?: ");
+  console.log("\n==========================================\n");
+
+  if (userInput === 'c') {
+      if (totalWeight + newFish.weight > 10) {
+          console.log('\n===You cannot catch this Pokemon because it will put you over your weight limit!. Pokemon must be (r)eleased in order to try again !!===\n')
+          console.log(`Your total weight is: ${totalWeight} lbs. Your total value is: $${totalValue}`);
+          console.log("\n");
+          timeCtr++
+          console.log(`The time is ${timeCtr}:00 am`);
+          continue;
+      }
+      fishKept.push(newFish.name);
+      totalValue += newFish.value;
+      totalWeight += newFish.weight;
+      // console.log(newFish);
+      // console.log("\n==========================================\n");
+      console.log('Alright ! Good catch !, lets keep hunting !');
+      console.log("\n==========================================\n");
+
+  }
+  if (userInput === 'c' && timeCtr === 4) {
+      console.log("This is your last turn, make it count !!!!")
+  } else if (userInput === 'r') {
+      console.log('\n===== You just released this Pokemom, better luck next time! =====\n')
+      console.log(newFish);
+      console.log("\n==========================================\n");
+      console.log('Lets keep hunting !')
+      console.log("\n==========================================\n");
+  }
+
+  timeCtr++;
+  console.log("\n");
+  console.log(`The time is ${timeCtr}:00 am`);
+  console.log('\n');
+  console.log(`Your total weight is: ${totalWeight} lbs. Your total value is: $${totalValue}`);
+  console.log('\n');
+  finishedFishName = '';
 }
 
-
-let randomValue = () => {
-  let valueResult = Math.ceil(Math.random() * 1000) / 50;
-  return `${valueResult}`;
-}
-//Fish Object
-let createFish = (na, we, va) => {
-    newFish = {
-     
-     name: na,
-     weight: `${we} lbs`,
-     value: `$${va}`,
-   };
-
-   return newFish;
-};
-
-
-//Loop
-while (hourCtr < 7 && weightCtr < 10) {
-  
-    console.log(`\nThe time is ${time}:00am. So far you've caught: ${fishCtr} fish, ${weightCtr} lbs, $${valueCtr} \n`);
-
-    console.log(`************************************ turn ${hourCtr} ************************************`)
-    console.log(`********************************************************************************`)
-    console.log(`\nGO FISHIN'\n`)
-  
-    newFish = createFish(randomFish(), randomWeight(), randomValue()); 
-  
-    console.log(`You caught a '${newFish.name}' weighing ${newFish.weight}lbs and valued at $${newFish.value} \n`);
-  
-let userInput = prompt("Would you like to [c]atch or [r]elease? >")
-    
-    if(userInput === 'c' && weightCtr + Number(randomWeight()) > 10) {
-        console.log('\n===You cannot catch this fish it will put you over your limit!===\n')
-        
-        hourCtr++
-        time++
-    
-    } else if (userInput === 'c') {
-        console.log("\nYou chose to KEEP THE FISH!")
-        fishKeep.push(newFish); 
-        weightCtr = weightCtr + Number(randomWeight()); 
-        valueCtr = valueCtr + Number(randomValue()); 
-
-        hourCtr++;
-        time++
-        fishCtr++
-           
-        
-    } else {
-        console.log("\nFishy go free!!!\n")
-        hourCtr++;
-        time++
-    }
-
-}
-
-
-console.log(`\nGAME OVER!`)
-console.log(`\nyou've caught ${fishKeep.length} fish!\n`)
-
-for(let i = 0; i < fishKeep.length; i++){
-    console.log(fishKeep[i])
-
-}
-console.log(`\n`)
+// Once the game is done stuff
+console.log("\n");
+console.log("GAME OVER");
+console.log("GAME OVER");
+console.log("GAME OVER");
+console.log("\n");
+console.log(`Pokemon you've caught: ${fishKept}`);
+console.log("\n");
+console.log("GAME OVER");
+console.log("GAME OVER");
+console.log("GAME OVER");
+console.log("\n");
