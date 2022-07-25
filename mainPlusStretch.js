@@ -64,10 +64,13 @@ while (hourCtr < 7 && weightCtr < 10) {
   //while hourCtr is less than 7 AND weightCtr is less than 10
 
   console.log(
-    `************************************ turn ${hourCtr} ************************************`
+    "$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$"
+  );
+  console.log(
+    `$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$   TURN ${hourCtr}   $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$`
   ); //logs the turn number //same as hourCtr
   console.log(
-    `********************************************************************************`
+    "$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$"
   );
   console.log(
     `\nThe time is ${hourCtr + 5}:00am. So far you've caught: ${
@@ -95,7 +98,7 @@ while (hourCtr < 7 && weightCtr < 10) {
       console.log("###############################\n");
     } else if (userInputRemove === "n") {
       console.log("\n###############################");
-      console.log("\n#######     OK       ########\n");
+      console.log("\n#######      OK      ##########\n");
       console.log("###############################\n");
     }
   }
@@ -116,13 +119,13 @@ while (hourCtr < 7 && weightCtr < 10) {
 
   if (userInput === "c" && weightCtr > 10) {
     console.log(
-      "\n#################################################################"
+      "\n#####################################################################"
     );
     console.log(
-      "\n===You cannot catch this fish it will put you over your limit!===\n"
+      "\n##   You cannot catch this fish it will put you over your limit!   ##\n"
     );
     console.log(
-      "#################################################################\n"
+      "#####################################################################\n"
     );
 
     weightCtr -= newFish.weight; //subtracts the weight of newfish to weightCtr
@@ -133,7 +136,7 @@ while (hourCtr < 7 && weightCtr < 10) {
     console.log(
       "\n#################################################################"
     );
-    console.log("\nYou chose to KEEP THE FISH!\n");
+    console.log("\n###############    You chose to KEEP THE FISH!    ###############\n");
     console.log(
       "#################################################################\n"
     );
@@ -157,9 +160,14 @@ while (hourCtr < 7 && weightCtr < 10) {
     );
   }
   console.log("\n");
+  console.log("\n");
+  
 }
-
-console.log(`\nGAME OVER!`);
+console.log("\n###############################################");
+console.log("###############################################");
+console.log("#########        GAME OVER!        ############");
+console.log("###############################################");
+console.log("###############################################\n");
 console.log(`\nyou've caught ${fishKeep.length} fish!\n`);
 console.log();
 
@@ -171,4 +179,5 @@ for (let i = 0; i < fishKeep.length; i++) {
 
 console.log(`\nTotal weight: ${weightCtr}`);
 console.log(`Total value: $${valueCtr}`);
+console.log(`\n`);
 console.log(`\n`);
