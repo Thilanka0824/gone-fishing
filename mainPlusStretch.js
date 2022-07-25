@@ -10,6 +10,7 @@ let fishName = "";
 let fishKeep = []
 let newFish = {}
 let userInput = ''
+let userInputRemove = ''
 
 //decriptor arrays
 let fishType = ["","Salmon","Talapia","Tuna","Trout","Cod","Goldfish","Sunfish","Bass","Beluga","Barramundi",
@@ -39,9 +40,9 @@ let randomFish = () => {
 
 
 let randomWeight = () => {
-  let weightResult = Math.ceil(Math.random() * 1000) / 200;
+  let weightResult = Math.ceil(Math.random() * 1000) / 150;
   return Number(weightResult);
-} // this function returns a randomly generated weight result between (1 - 1000) / 100
+} // this function returns a randomly generated weight result between (1 - 1000) / 150
 
 
 let randomValue = () => {
@@ -76,6 +77,31 @@ while (hourCtr < 7 && weightCtr < 10) {
     `\nThe time is ${hourCtr + 5}:00am. So far you've caught: ${fishKeep.length
     } fish, ${weightCtr} lbs, $${valueCtr} \n`
   ); //logs the time, how many fish caught, weight, value.
+
+    if(hourCtr > 1) {
+        console.log("\n#################################################################\n");
+        userInputRemove = prompt("Would you like to remove the last fish you caught? 'y' or 'n' then ENTER > ")
+        console.log("\n#################################################################\n");
+        
+        if (userInputRemove === 'y'){
+            weightCtr -= newFish.weight; //subtracts the weight of newfish to weightCtr
+            valueCtr -= newFish.value; //subtracts the value of newfish to valueCtr
+            fishKeep.pop(); //removes last item from the fishKeep array
+            console.log("\n###############################");
+            console.log("\nBYE BYE FISHY!#################\n");
+            console.log("\###############################\n");
+        
+          } else if(userInputRemove === 'n'){
+            console.log("\n###############################");
+            console.log("\n#######     OK       ########\n");
+            console.log("###############################\n");
+        }
+    }    
+    
+
+
+
+
   console.log(`\nGO FISHIN'\n`);
 
   newFish = createFish(randomFish(), randomWeight(), randomValue()); //creates a new fish in createFish and puts it into newFish
@@ -86,9 +112,10 @@ while (hourCtr < 7 && weightCtr < 10) {
   weightCtr += newFish.weight; //subtracts the weight of newfish to weightCtr
   valueCtr += newFish.value; //subtracts the value of newfish to valueCtr
 
-  userInput = prompt("Would you like to [c]atch or [r]elease? >");
+  userInput = prompt("Would you like to [c]atch or [r]elease? > ");
 
   if (userInput === "c" && weightCtr > 10) {
+    console.log("\n#################################################################");
     console.log("\n===You cannot catch this fish it will put you over your limit!===\n");
     console.log("#################################################################\n");
     
@@ -96,23 +123,26 @@ while (hourCtr < 7 && weightCtr < 10) {
     valueCtr -= newFish.value; //subtracts the value of newfish to valueCtr
     fishKeep.pop(newFish); //removes newFish from the fishKeep array
     hourCtr++; //adds 1 to the hourCtr
-    //console.log(`weightCtr overlimit: ${weightCtr}`);
+    
   
   } else if (userInput === "c" && weightCtr < 10) {
+    console.log("\n#################################################################");
     console.log("\nYou chose to KEEP THE FISH!\n");
-    console.log(`fishKeep a. : ${fishKeep.length}`);
-
+    console.log("#################################################################\n");
+    
     hourCtr++;
-    //console.log(`weightCtr keep the fish: ${weightCtr}`);
+    
   
   } else if(userInput === 'r' ){
-    console.log("\nFishy go free!!!\n");
-
-    weightCtr -= newFish.weight;
-    valueCtr -= newFish.value;
-    fishKeep.pop(newFish);
-    hourCtr++;
-    //console.log(`weightCtr release: ${weightCtr}`);
+    console.log("\n##############################################");
+    console.log("\nFishy go free!!!###############################\n");
+    console.log("###############################################\n");
+    
+    weightCtr -= newFish.weight; //subtracts the weight of newfish to weightCtr
+    valueCtr -= newFish.value; //subtracts the value of newfish to valueCtr
+    fishKeep.pop(newFish); //removes newFish from the fishKeep array
+    hourCtr++; //adds 1 to the hourCtr
+    
 
   }
 
@@ -132,11 +162,11 @@ console.log();
 
 for (let i = 0; i < fishKeep.length; i++) {
   console.log(
-    `*** ${fishKeep[i].name}, ${fishKeep[i].weight} lbs, $${fishKeep[i].value}`
+    `***  ${fishKeep[i].name}, ${fishKeep[i].weight} lbs, $${fishKeep[i].value}  ***`
+    
   );
 }
 
 console.log(`\nTotal weight: ${weightCtr}`);
 console.log(`Total value: $${valueCtr}`);
 console.log(`\n`);
-
