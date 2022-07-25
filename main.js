@@ -5,9 +5,7 @@ const prompt = require("prompt-sync")({ sigint: true });
 let hourCtr = 1; //will keep track of each turn. 6 turns total
 let weightCtr = 0; //will keep track of total weight
 let valueCtr = 0; //will keep track of toatl value
-//let fishCtr = 0
 
-let time = 6 
 let fishName = "";
 let fishKeep = []
 let newFish = {}
@@ -41,13 +39,13 @@ let randomFish = () => {
 
 
 let randomWeight = () => {
-  let weightResult = Math.ceil(Math.random() * 1000) / 100;
+  let weightResult = Math.ceil(Math.random() * 1000) / 200;
   return Number(weightResult);
 } // this function returns a randomly generated weight result between (1 - 1000) / 100
 
 
 let randomValue = () => {
-  let valueResult = Math.ceil(Math.random() * 1000) / 100;
+  let valueResult = Math.ceil(Math.random() * 1000) / 50;
   return valueResult;
 } // this function returns a randomly generated value (1 - 1000) / 100
 
@@ -85,8 +83,8 @@ while (hourCtr < 7 && weightCtr < 10) {
   fishKeep.push(newFish); //pushes newFish to the fishKeep array
   
   console.log(`You caught a '${newFish.name}' weighing ${newFish.weight} and valued at $${newFish.value} \n`); //logs the fish, its weight, and value
-  weightCtr += newFish.weight; //adds the weight of newfish to weightCtr
-  valueCtr += newFish.value; //adds the value of newfish to valueCtr
+  weightCtr += newFish.weight; //subtracts the weight of newfish to weightCtr
+  valueCtr += newFish.value; //subtracts the value of newfish to valueCtr
 
   userInput = prompt("Would you like to [c]atch or [r]elease? >");
 
@@ -94,18 +92,18 @@ while (hourCtr < 7 && weightCtr < 10) {
     console.log("\n===You cannot catch this fish it will put you over your limit!===\n");
     console.log("#################################################################\n");
     
-    weightCtr -= newFish.weight;
-    valueCtr -= newFish.value;
-    fishKeep.pop(newFish);
-    hourCtr++;
-    console.log(`weightCtr overlimit: ${weightCtr}`);
+    weightCtr -= newFish.weight; //subtracts the weight of newfish to weightCtr
+    valueCtr -= newFish.value; //subtracts the value of newfish to valueCtr
+    fishKeep.pop(newFish); //removes newFish from the fishKeep array
+    hourCtr++; //adds 1 to the hourCtr
+    //console.log(`weightCtr overlimit: ${weightCtr}`);
   
   } else if (userInput === "c" && weightCtr < 10) {
     console.log("\nYou chose to KEEP THE FISH!\n");
     console.log(`fishKeep a. : ${fishKeep.length}`);
 
     hourCtr++;
-    console.log(`weightCtr keep the fish: ${weightCtr}`);
+    //console.log(`weightCtr keep the fish: ${weightCtr}`);
   
   } else if(userInput === 'r' ){
     console.log("\nFishy go free!!!\n");
@@ -114,7 +112,7 @@ while (hourCtr < 7 && weightCtr < 10) {
     valueCtr -= newFish.value;
     fishKeep.pop(newFish);
     hourCtr++;
-    console.log(`weightCtr release: ${weightCtr}`);
+    //console.log(`weightCtr release: ${weightCtr}`);
 
   }
 
@@ -133,7 +131,7 @@ console.log();
 
 for (let i = 0; i < fishKeep.length; i++) {
   console.log(
-    `*** ${fishKeep[i].name}, ${fishKeep[i].weight}lbs, $${fishKeep[i].value}`
+    `*** ${fishKeep[i].name}, ${fishKeep[i].weight} lbs, $${fishKeep[i].value}`
   );
 }
 
