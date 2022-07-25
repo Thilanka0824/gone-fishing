@@ -144,8 +144,8 @@ while (hourCtr < 7 && weightCtr < 10) {
     hourCtr++;
   } else if (userInput === "r") {
     console.log("\n##############################################");
-    console.log("\nFishy go free!!!###############################\n");
-    console.log("###############################################\n");
+    console.log("\n###########    Fishy go free!!!    ###########\n");
+    console.log("##############################################\n");
 
     weightCtr -= newFish.weight; //subtracts the weight of newfish to weightCtr
     valueCtr -= newFish.value; //subtracts the value of newfish to valueCtr
