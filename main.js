@@ -93,12 +93,12 @@ while (hourCtr < 7 && weightCtr < 10) {
       weightCtr -= newFish.weight; //subtracts the weight of newfish to weightCtr
       valueCtr -= newFish.value; //subtracts the value of newfish to valueCtr
       fishKeep.pop(); //removes last item from the fishKeep array
-      console.log("\n###############################");
-      console.log("\nBYE BYE FISHY!#################\n");
-      console.log("###############################\n");
+      console.log("\n######################################");
+      console.log("\n########    BYE BYE FISHY!    ########\n");
+      console.log("######################################\n");
     } else if (userInputRemove === "n") {
       console.log("\n###############################");
-      console.log("\n#######      OK      ##########\n");
+      console.log("\n########      OK      #########\n");
       console.log("###############################\n");
     }
   }
@@ -163,11 +163,11 @@ while (hourCtr < 7 && weightCtr < 10) {
   console.log("\n");
   
 }
-console.log("\n###############################################");
-console.log("###############################################");
-console.log("#########        GAME OVER!        ############");
-console.log("###############################################");
-console.log("###############################################\n");
+console.log("\n##################################################");
+console.log("##################################################");
+console.log("############        GAME OVER!        ############");
+console.log("##################################################");
+console.log("##################################################\n");
 console.log(`\nyou've caught ${fishKeep.length} fish!\n`);
 console.log();
 
